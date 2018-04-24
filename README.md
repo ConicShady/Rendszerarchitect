@@ -1,0 +1,1 @@
+Ide nem kell semmi
