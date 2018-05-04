@@ -1,0 +1,4 @@
+Running: xsim.dir/shiftreg_tb_behav/xsimk.exe -simmode gui -wdb shiftreg_tb_behav.wdb -simrunnum 0 -socket 49892
+Design successfully loaded
+Design Loading Memory Usage: 4944 KB (Peak: 4944 KB)
+Design Loading CPU Usage: 46 ms
