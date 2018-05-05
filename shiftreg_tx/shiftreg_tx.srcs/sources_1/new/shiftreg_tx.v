@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+//Kimenetek, bemenetek, változók
 module shiftreg_tx(
     input [6:0]confBits, //0:data, 1-2:parity, 3:stop, 4-6: baudrate
     //PARITÁS: MSB(confBits[2]): van-nincs, LSB(confBits[1]): milyen? 0: páros, 1: páratlan
@@ -37,7 +37,6 @@ module shiftreg_tx(
     
     reg foglalt;
     reg [3:0] szamlalo;
-    reg [11:0]temporary;
     reg [11:0] frameki;
     reg paritas;
     
@@ -46,109 +45,59 @@ module shiftreg_tx(
     wire [3:0]frameLen;
     reg dout;
     reg [11:0]temp;
-    reg parity;
-    reg [11:0]frame1; reg [11:0]frame2; reg [11:0]frame3; reg [11:0]frame4; reg [11:0]frame5; reg [11:0]frame6; reg [11:0]frame7; reg [11:0]frame8;
-    reg sel;
-    reg [11:0]shrIn;
+    wire parity;
+    wire [11:0]frame1; wire [11:0]frame2; wire [11:0]frame3; wire [11:0]frame4; wire [11:0]frame5; wire [11:0]frame6; wire [11:0]frame7; wire [11:0]frame8;
+    wire [2:0]sel;
  
+//A framelength meghatározása, mert ez csak egy kombinációs hálózat 
 assign frameLen=9+confBits[0]+confBits[2]+confBits[3];
-/*
-always @ (*) begin
-//parity
-    if (confBits[0]==0)
-        parity<=(dataIn[0]^dataIn[1])^(dataIn[2]^dataIn[3])^(dataIn[4]^dataIn[5])^dataIn[6];
-    else
-        parity<=(dataIn[0]^dataIn[1])^(dataIn[2]^dataIn[3])^(dataIn[4]^dataIn[5])^(dataIn[6]^dataIn[7]); 
-    if (confBits[1]==1)
-        parity<=~parity;
-        
- //framegenerátor
-    frame1<={1'b0,dataIn[6:0],1'b1,3'b111};
-    frame2<={1'b0,dataIn[6:0],2'b11,2'b11};
-    frame3<={1'b0,dataIn[6:0],parity,1'b1,2'b11};
-    frame4<={1'b0,dataIn[6:0],parity,2'b11,1'b1};
-    frame5<={1'b0,dataIn[7:0],1'b1,2'b11};
-    frame6<={1'b0,dataIn[7:0],2'b11,1'b1};
-    frame7<={1'b0,dataIn[7:0],parity,1'b1,1'b1};
-    frame8<={1'b0,dataIn[7:0],parity,2'b11};
-    
- //multiplexer 8_1
-    sel={confBits[0],confBits[2],confBits[3]};
-    case (sel)
-        3'b000:shrIn<=frame1;
-        3'b001:shrIn<=frame2;
-        3'b010:shrIn<=frame3;
-        3'b011:shrIn<=frame4;
-        3'b100:shrIn<=frame5;
-        3'b101:shrIn<=frame6;
-        3'b110:shrIn<=frame7;
-        3'b111:shrIn<=frame8;
-    endcase 
-        
+
+//A MUX kiválasztó jeleinek számolása a konfigurációs regiszterek alapján
+assign sel={confBits[0],confBits[2],confBits[3]};
+
+//Parityx with assign
+assign parity = (confBits[1]==0) ? ((confBits[0]==0) ? ^dataIn[6:0] : ^dataIn) : ((confBits[0]==0) ? ~^dataIn[6:0] : ~^dataIn) ;
+
+//FRAME-ek el?állítása
+assign frame1={1'b0,dataIn[6:0],1'b1,3'b111};
+assign frame2={1'b0,dataIn[6:0],2'b1,2'b11};
+assign frame3={1'b0,dataIn[6:0],parity,1'b1,2'b11};
+assign frame4={1'b0,dataIn[6:0],parity,2'b11,1'b1};
+assign frame5={1'b0,dataIn[7:0],1'b1,2'b11};
+assign frame6={1'b0,dataIn[7:0],2'b11,1'b1};
+assign frame7={1'b0,dataIn[7:0],parity,1'b1,1'b1};
+assign frame8={1'b0,dataIn[7:0],parity,2'b11};
+
+//MUX a shift reg el?tt
+always @( posedge (busy), sel) begin
+   case (sel)
+       3'b000:  temp <= frame1;
+       3'b001:  temp <= frame2;
+       3'b010:  temp <= frame3;
+       3'b011:  temp <= frame4;
+       3'b100:  temp <= frame5;
+       3'b101:  temp <= frame6;
+       3'b110:  temp <= frame7;
+       3'b111:  temp <= frame8;
+   endcase
 end
-   */
+
 always @(posedge (clk)) begin
     
     foglalt<=busy;
     szamlalo<=bitCntr;
-    temporary<=temp;
-    frameki<=shrIn;
+    frameki<=temp;
     paritas<=parity;
-    
 
-    //parity
-    if(confBits[1]==0) begin
-        if (confBits[0]==0)
-            parity<=(dataIn[0]^dataIn[1])^(dataIn[2]^dataIn[3])^(dataIn[4]^dataIn[5])^dataIn[6];
-        else
-            parity<=(dataIn[0]^dataIn[1])^(dataIn[2]^dataIn[3])^(dataIn[4]^dataIn[5])^(dataIn[6]^dataIn[7]); 
-    end
-    if (confBits[1]==1) begin
-        if (confBits[0]==0)
-            parity<=~((dataIn[0]^dataIn[1])^(dataIn[2]^dataIn[3])^(dataIn[4]^dataIn[5])^dataIn[6]);
-        else
-            parity<=~((dataIn[0]^dataIn[1])^(dataIn[2]^dataIn[3])^(dataIn[4]^dataIn[5])^(dataIn[6]^dataIn[7])); 
-    end
-        
-        
- //framegenerátor
-    frame1<={1'b0,dataIn[6:0],1'b1,3'b111};
-    frame2<={1'b0,dataIn[6:0],2'b11,2'b11};
-    frame3<={1'b0,dataIn[6:0],parity,1'b1,2'b11};
-    frame4<={1'b0,dataIn[6:0],parity,2'b11,1'b1};
-    frame5<={1'b0,dataIn[7:0],1'b1,2'b11};
-    frame6<={1'b0,dataIn[7:0],2'b11,1'b1};
-    frame7<={1'b0,dataIn[7:0],parity,1'b1,1'b1};
-    frame8<={1'b0,dataIn[7:0],parity,2'b11};
-    
- //multiplexer 8_1
-    sel={confBits[0],confBits[2],confBits[3]};
-    case (sel)
-        3'b000:shrIn<=frame1;
-        3'b001:shrIn<=frame2;
-        3'b010:shrIn<=frame3;
-        3'b011:shrIn<=frame4;
-        3'b100:shrIn<=frame5;
-        3'b101:shrIn<=frame6;
-        3'b110:shrIn<=frame7;
-        3'b111:shrIn<=frame8;
-    endcase 
-/*
-    else if(reset)begin
-        temp <=12'b111111111111;
-        dout <=1;
-    end
- */   
- 
  // shift-regiszter
     if(busy==0)begin
         if(dataReady==1)begin
-            temp <=shrIn;
             busy<=1;
         end
         else
             temp <=12'b111111111111;     
     end
+    
     if(busy==1) begin
         bitCntr <=bitCntr+1;
         dout <=temp[11];
@@ -158,7 +107,6 @@ always @(posedge (clk)) begin
             busy <=0;
             dout<=1;
         end
-    end   
-  
-end  
+    end    
+end
 endmodule
