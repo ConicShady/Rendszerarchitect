@@ -1,0 +1,10 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rx_module
+WARNING: [VRFC 10-1315] redeclaration of ansi port baudrate is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v:37]
+WARNING: [VRFC 10-1315] redeclaration of ansi port baudrate16 is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v:38]
+WARNING: [VRFC 10-1315] redeclaration of ansi port clkNum is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v:43]
+WARNING: [VRFC 10-1315] redeclaration of ansi port comError is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v:45]
+WARNING: [VRFC 10-1315] redeclaration of ansi port parError is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v:46]
+WARNING: [VRFC 10-1315] redeclaration of ansi port dataIn is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sources_1/new/rx_module.v:47]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/rx_module/rx_module.srcs/sim_1/new/rx_module_Tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rx_module_Tb
