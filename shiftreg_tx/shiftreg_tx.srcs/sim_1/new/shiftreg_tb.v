@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-`define clk_period 10
+`define clk_period 31.25
 
 module shiftreg_tb();
     
@@ -29,11 +29,12 @@ module shiftreg_tb();
     reg [6:0]confBits;
     wire dout;
     wire [3:0]frameLen;
-    
-    wire [3:0] szamlalo;
-    wire foglalt;
-    wire [11:0] frameki;
-    wire paritas;
+
+    wire [3:0]bitCntr;
+    wire busy;
+    wire [10:0] temp;
+    wire parity;
+    wire baudrate;
     
 shiftreg_tx SHIFTREG(
     .confBits(confBits),
@@ -42,14 +43,14 @@ shiftreg_tx SHIFTREG(
     .dataReady(dataReady),
     .dout(dout),
     .frameLen(frameLen),
-    .foglalt(foglalt),
-    .szamlalo(szamlalo),
-    .frameki(frameki),
-    .paritas(paritas)
-    
+    .busy(busy),
+    .bitCntr(bitCntr),
+    .temp(temp),
+    .parity(parity),
+    .baudrate(baudrate)
 );
 
-initial confBits=7'b1110000;
+initial confBits=7'b1110101;
 initial clk =1;
 
 always #(`clk_period/2) clk=~clk;
@@ -59,21 +60,8 @@ initial begin
     dataReady=0;
     
     #77 dataReady=1;
-    
-    /*
-    #18 dataReady=0;
-   
-    #98 dataReady=1;
-    
-    #18 dataReady=0;
-   */
-    /*
-    #120 dataReady=1;
-    
-    #40 dataReady=0;
-        */    
 
-    #(`clk_period*50);
+    #(`clk_period*5000);
     $finish;
 end
     

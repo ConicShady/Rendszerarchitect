@@ -1,10 +1,11 @@
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module shiftreg_tx
-WARNING: [VRFC 10-1315] redeclaration of ansi port foglalt is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:38]
-WARNING: [VRFC 10-1315] redeclaration of ansi port szamlalo is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:39]
-WARNING: [VRFC 10-1315] redeclaration of ansi port frameki is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:40]
-WARNING: [VRFC 10-1315] redeclaration of ansi port paritas is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:41]
-WARNING: [VRFC 10-1315] redeclaration of ansi port frameLen is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:45]
-WARNING: [VRFC 10-1315] redeclaration of ansi port dout is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:46]
+WARNING: [VRFC 10-1315] redeclaration of ansi port busy is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:19]
+WARNING: [VRFC 10-1315] redeclaration of ansi port bitCntr is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:20]
+WARNING: [VRFC 10-1315] redeclaration of ansi port frameLen is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:21]
+WARNING: [VRFC 10-1315] redeclaration of ansi port dout is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:22]
+WARNING: [VRFC 10-1315] redeclaration of ansi port temp is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:23]
+WARNING: [VRFC 10-1315] redeclaration of ansi port parity is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:24]
+WARNING: [VRFC 10-1315] redeclaration of ansi port baudrate is not allowed [C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sources_1/new/shiftreg_tx.v:28]
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/User/Desktop/suli/MSc/Rendszerarchitect/shiftreg_tx/shiftreg_tx.srcs/sim_1/new/shiftreg_tb.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module shiftreg_tb
